@@ -237,6 +237,7 @@ impl<'a> Step<'a> {
 }
 
 /// Top-level view of a validated `compose` payload.
+#[derive(Debug)]
 pub struct Layout<'a> {
     /// Outer account indices of the watched accounts.
     pub watch: &'a [u8],

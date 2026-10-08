@@ -7,7 +7,6 @@ use crate::{
 };
 use pinocchio::{
     cpi::invoke,
-    error::ProgramError,
     instruction::{InstructionAccount, InstructionView},
     AccountView, Address, ProgramResult,
 };

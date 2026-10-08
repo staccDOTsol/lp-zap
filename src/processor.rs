@@ -241,19 +241,21 @@ mod tests {
         let mut snaps = [[0u64; MAX_WATCH]; MAX_STEPS + 1];
         snaps[0][0] = 100;
         snaps[1][0] = 10_100;
-        let pv = |mode, num, den, sub| patch_value(&snaps, 1, 0, 0, mode, num, den, sub);
-        assert_eq!(pv(0, 0, 0, 0).unwrap(), 10_000);
-        assert_eq!(pv(1, 3, 4, 0).unwrap(), 7_500);
-        assert_eq!(pv(2, 3, 4, 500).unwrap(), 7_000);
-        assert_eq!(pv(2, 3, 4, 9_000).unwrap(), 0);
-        assert_eq!(pv(3, 4_000, 0, 0).unwrap(), 4_000);
-        assert_eq!(pv(3, 40_000, 0, 0).unwrap(), 10_000);
-        assert_eq!(pv(1, 1, 0, 0).unwrap_err(), ProgramError::Custom(E::DivideByZero as u32));
+        let pv = |snaps: &[[u64; MAX_WATCH]], mode, num, den, sub| {
+            patch_value(snaps, 1, 0, 0, mode, num, den, sub)
+        };
+        assert_eq!(pv(&snaps, 0, 0, 0, 0).unwrap(), 10_000);
+        assert_eq!(pv(&snaps, 1, 3, 4, 0).unwrap(), 7_500);
+        assert_eq!(pv(&snaps, 2, 3, 4, 500).unwrap(), 7_000);
+        assert_eq!(pv(&snaps, 2, 3, 4, 9_000).unwrap(), 0);
+        assert_eq!(pv(&snaps, 3, 4_000, 0, 0).unwrap(), 4_000);
+        assert_eq!(pv(&snaps, 3, 40_000, 0, 0).unwrap(), 10_000);
+        assert_eq!(pv(&snaps, 1, 1, 0, 0).unwrap_err(), ProgramError::Custom(E::DivideByZero as u32));
         snaps[1][0] = 1u64 << 63;
         snaps[0][0] = 0;
-        assert_eq!(pv(1, 4, 1, 0).unwrap_err(), ProgramError::Custom(E::PatchOverflow as u32));
-        assert_eq!(pv(1, 2, 1, 0).unwrap_err(), ProgramError::Custom(E::PatchOverflow as u32));
-        assert_eq!(pv(1, 1, 1, 0).unwrap(), 1u64 << 63);
+        assert_eq!(pv(&snaps, 1, 4, 1, 0).unwrap_err(), ProgramError::Custom(E::PatchOverflow as u32));
+        assert_eq!(pv(&snaps, 1, 2, 1, 0).unwrap_err(), ProgramError::Custom(E::PatchOverflow as u32));
+        assert_eq!(pv(&snaps, 1, 1, 1, 0).unwrap(), 1u64 << 63);
         snaps[1][0] = 5;
         assert_eq!(patch_value(&snaps, 1, 0, 0, 0, 0, 0, 0).unwrap(), 5);
         snaps[0][0] = 6;

@@ -1,0 +1,331 @@
+{
+  "programId": "BHYw1FAWPriW9Gh7BG49X4UVe96CDjaxFrFFUtGSQmRx",
+  "feeRecipient": "331nEBz4i3XjyaUHVyHnpw9xBoW7D6P1qMPnUPd76Mth",
+  "feeBps": 10,
+  "note": "Layout fixture bytes are asserted by src/layout.rs (cargo test), client/encode.test.ts (node --test) and must be matched by any other encoder. Byte layout: see README.md.",
+  "fixtures": [
+    {
+      "name": "layout",
+      "description": "watch [2,5]; step 0 = program 6, accounts [1,2,3], data 03 10 27 00 00 00 00 00 00 (token transfer 10000), no patches, no fee; step 1 = program 6, accounts [2,4,1], data 03 00 00 00 00 00 00 00 00, one patch {offset 1, watch 0, fromStep 0, mode 1, num 3, den 4, sub 0}, fee {watch 0, feeAta 7, mint 8, tokenProgram 6, ataProgram 9, systemProgram 10}; one check {watch 1, kind 0 (min), bound -5}.",
+      "spec": {
+        "watch": [
+          2,
+          5
+        ],
+        "steps": [
+          {
+            "program": 6,
+            "accounts": [
+              1,
+              2,
+              3
+            ],
+            "dataHex": "031027000000000000",
+            "patches": [],
+            "fee": null
+          },
+          {
+            "program": 6,
+            "accounts": [
+              2,
+              4,
+              1
+            ],
+            "dataHex": "030000000000000000",
+            "patches": [
+              {
+                "offset": 1,
+                "watch": 0,
+                "fromStep": 0,
+                "mode": 1,
+                "num": 3,
+                "den": 4,
+                "sub": "0"
+              }
+            ],
+            "fee": {
+              "watch": 0,
+              "feeAta": 7,
+              "mint": 8,
+              "tokenProgram": 6,
+              "ataProgram": 9,
+              "systemProgram": 10
+            }
+          }
+        ],
+        "checks": [
+          {
+            "watch": 1,
+            "kind": 0,
+            "bound": "-5"
+          }
+        ]
+      },
+      "hex": "000202050206030102030900031027000000000000000006030204010900030000000000000000010100000001030000000400000000000000000000000100070806090a010100fbffffffffffffff",
+      "bytes": [
+        0,
+        2,
+        2,
+        5,
+        2,
+        6,
+        3,
+        1,
+        2,
+        3,
+        9,
+        0,
+        3,
+        16,
+        39,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        6,
+        3,
+        2,
+        4,
+        1,
+        9,
+        0,
+        3,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        3,
+        0,
+        0,
+        0,
+        4,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        7,
+        8,
+        6,
+        9,
+        10,
+        1,
+        1,
+        0,
+        251,
+        255,
+        255,
+        255,
+        255,
+        255,
+        255,
+        255
+      ]
+    },
+    {
+      "name": "assemble",
+      "description": "assemble([transfer(A->B, 10000), transfer(B->C, 0)], USER, [{mint: USDC, tokenProgram: SPL Token}]); token transfer data = [3] + u64 LE, keys [src w, dst w, USER signer]; then watch [index of B]; step 0 fee = fee(watch 0, USDC); step 1 patch {offset 1, watch 0, fromStep 0, mode 0}; check {watch 0, kind 0, bound 0}. Outer order: user (signer, writable) first, then each instruction's program id and keys in first-seen order (deduped, flags OR-ed), then per fee mint: mint, token program, fee ATA (writable), then ATA program, System program, fee recipient (readonly) last.",
+      "input": {
+        "user": "9xQeWvG816bUx9EPjHmaT23yvVM2ZWbrrpZb9PusVFin",
+        "A": "4k3Dyjzvzp8eMZWUXbBCjEvwSkkk59S5iCNLY3QrkX6R",
+        "B": "7xKXtg2CW87d97TXJSDpbD5jBkheTqA83TZRuJosgAsU",
+        "C": "HN7cABqLq46Es1jh92dQQisAq662SmxELLLsHHe4YWrH",
+        "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "tokenProgram": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+      },
+      "accounts": [
+        {
+          "pubkey": "9xQeWvG816bUx9EPjHmaT23yvVM2ZWbrrpZb9PusVFin",
+          "isSigner": true,
+          "isWritable": true
+        },
+        {
+          "pubkey": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+          "isSigner": false,
+          "isWritable": false
+        },
+        {
+          "pubkey": "4k3Dyjzvzp8eMZWUXbBCjEvwSkkk59S5iCNLY3QrkX6R",
+          "isSigner": false,
+          "isWritable": true
+        },
+        {
+          "pubkey": "7xKXtg2CW87d97TXJSDpbD5jBkheTqA83TZRuJosgAsU",
+          "isSigner": false,
+          "isWritable": true
+        },
+        {
+          "pubkey": "HN7cABqLq46Es1jh92dQQisAq662SmxELLLsHHe4YWrH",
+          "isSigner": false,
+          "isWritable": true
+        },
+        {
+          "pubkey": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+          "isSigner": false,
+          "isWritable": false
+        },
+        {
+          "pubkey": "BgfAes9oQmYS6sa2LefzNwdkAA1mwTq9iDZxVDhaxKDZ",
+          "isSigner": false,
+          "isWritable": true
+        },
+        {
+          "pubkey": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL",
+          "isSigner": false,
+          "isWritable": false
+        },
+        {
+          "pubkey": "11111111111111111111111111111111",
+          "isSigner": false,
+          "isWritable": false
+        },
+        {
+          "pubkey": "331nEBz4i3XjyaUHVyHnpw9xBoW7D6P1qMPnUPd76Mth",
+          "isSigner": false,
+          "isWritable": false
+        }
+      ],
+      "steps": [
+        {
+          "program": 1,
+          "accounts": [
+            2,
+            3,
+            0
+          ],
+          "dataHex": "031027000000000000"
+        },
+        {
+          "program": 1,
+          "accounts": [
+            3,
+            4,
+            0
+          ],
+          "dataHex": "030000000000000000"
+        }
+      ],
+      "feeAta": "BgfAes9oQmYS6sa2LefzNwdkAA1mwTq9iDZxVDhaxKDZ",
+      "hex": "000103020103020300090003102700000000000000010006050107080103030400090003000000000000000001010000000000000000000000000000000000000000000100000000000000000000",
+      "bytes": [
+        0,
+        1,
+        3,
+        2,
+        1,
+        3,
+        2,
+        3,
+        0,
+        9,
+        0,
+        3,
+        16,
+        39,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        6,
+        5,
+        1,
+        7,
+        8,
+        1,
+        3,
+        3,
+        4,
+        0,
+        9,
+        0,
+        3,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "feeAtaVectors": [
+    {
+      "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+      "tokenProgram": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+      "feeAta": "BgfAes9oQmYS6sa2LefzNwdkAA1mwTq9iDZxVDhaxKDZ"
+    },
+    {
+      "mint": "2b1kV6DkPAnxd5ixfnxCpjxmKwqjjaYmCZfHsFu24GXo",
+      "tokenProgram": "TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb",
+      "feeAta": "2WZ6DPdnxEVWDaWDxgWPKZEBGQ1Rs2fbrDXYTuBRyk9s"
+    },
+    {
+      "mint": "So11111111111111111111111111111111111111112",
+      "tokenProgram": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+      "feeAta": "DrfWXM7aEjsYNBCYHWRv57aor2etiuum97HedhcPmPdu"
+    }
+  ]
+}
