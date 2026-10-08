@@ -17,6 +17,18 @@ hop.
 The program knows nothing about any venue. It holds no funds, owns no
 accounts, derives no authority and never signs.
 
+## Mainnet deployment
+
+| | |
+| --- | --- |
+| Program id | `BHYw1FAWPriW9Gh7BG49X4UVe96CDjaxFrFFUtGSQmRx` |
+| Deployment transaction | https://solscan.io/tx/2F3dGfz6G9znv4oVdk33T2qHvoXof6WeL8qArBDiufFoAu3MwzVP7CRa2iLCdTXMwJtLJ1uzHSAn463JzLpQk16b |
+| Binary | `target/deploy/lp_zap.so`, 37,288 bytes, SHA-256 `13230d363f50628a4c5e4e05dca6bd9f0101ed22f9d7b924a568b8918ec33901` |
+| Upgrade authority | `331nEBz4i3XjyaUHVyHnpw9xBoW7D6P1qMPnUPd76Mth` |
+| Fee recipient | `331nEBz4i3XjyaUHVyHnpw9xBoW7D6P1qMPnUPd76Mth`, 10 bps per fee'd hop, in kind |
+
+Deployed 2026-10-08 from commit `befdcfe`. First production user is the liquidityxyz.fun server ([staccDOTsol/ftl](https://github.com/staccDOTsol/ftl), `server/src/solana/compose.ts`).
+
 ## Program id
 
 `BHYw1FAWPriW9Gh7BG49X4UVe96CDjaxFrFFUtGSQmRx` (`declare_id!` in `src/lib.rs`).
