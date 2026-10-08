@@ -27,7 +27,15 @@ accounts, derives no authority and never signs.
 | Upgrade authority | `331nEBz4i3XjyaUHVyHnpw9xBoW7D6P1qMPnUPd76Mth` |
 | Fee recipient | `331nEBz4i3XjyaUHVyHnpw9xBoW7D6P1qMPnUPd76Mth`, 10 bps per fee'd hop, in kind |
 
-Deployed 2026-10-08 from commit `befdcfe`. First production user is the liquidityxyz.fun server ([staccDOTsol/ftl](https://github.com/staccDOTsol/ftl), `server/src/solana/compose.ts`).
+Deployed 2026-10-08 from commit `befdcfe`.
+### First production receipt
+
+2026-10-08, slot 454461597: a two-hop swap composed by the liquidityxyz.fun server, 0.005 USDC → SOL (Meteora DLMM `HRYEjwdo…`) → BORDR (Meteora DLMM `5XQaJzF6…`), hop 2's `amount_in` patched on chain from hop 1's real WSOL delta, 10 bps per hop in kind, one signature, 111,193 compute units, 1,112 bytes.
+
+```text
+https://solscan.io/tx/4yosNpvSLK2Sn6SmJbh6M7BxnxYKiBCg7XZMoM2RfHBr2Sn7yxDpvtSHaEiXArC2UtzfZTCCLqX4hLa9fMyME8k2
+```
+ First production user is the liquidityxyz.fun server ([staccDOTsol/ftl](https://github.com/staccDOTsol/ftl), `server/src/solana/compose.ts`).
 
 ## Program id
 
